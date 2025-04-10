@@ -21,20 +21,12 @@ jobs:
       run: |
         gcloud auth configure-docker southamerica-east1-docker.pkg.dev
 
-    - name: Buildar imagens Docker
+    - name: Fazer build e push das imagens Docker
       run: |
-        docker build -t frontend:latest ./frontend
-        docker build -t backend:latest ./backend
-        docker pull postgres:14
+        docker build -t southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/frontend:latest ./frontend
+        docker build -t southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/backend:latest ./backend
+        docker build -t southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/postgres:14 ./postgres
 
-    - name: Taguear imagens
-      run: |
-        docker tag frontend:latest southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/frontend:latest
-        docker tag backend:latest southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/backend:latest
-        docker tag postgres:14 southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/postgres:14
-
-    - name: Enviar imagens para o Google Artifact Registry
-      run: |
         docker push southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/frontend:latest
         docker push southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/backend:latest
         docker push southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/postgres:14
