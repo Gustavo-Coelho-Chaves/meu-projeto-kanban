@@ -1,11 +1,16 @@
-// frontend/src/App.js
-import React from "react";
+// src/App.js
+import React from 'react';
 
 function App() {
   return (
-    <div>
-      <h1>Olá, mundo!</h1>
-      <h1>teste</h1>
+    <div style={{ 
+      display: 'flex', 
+      height: '100vh', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      fontSize: '24px' 
+    }}>
+       O React está funcionando corretamente! 
     </div>
   );
 }
