@@ -10,7 +10,12 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'flow_id', 'title', 'description', 'due_date', 'priority'
+        'flow_id',
+        'title',
+        'description',
+        'due_date',
+        'priority',
+        'type',
     ];
 
     public function flow()
