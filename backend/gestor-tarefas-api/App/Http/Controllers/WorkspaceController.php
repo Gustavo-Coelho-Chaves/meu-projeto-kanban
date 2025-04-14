@@ -33,6 +33,22 @@ class WorkspaceController extends Controller
         return response()->json($workspace, 201);
     }
 
+public function destroyTodo($id)
+{
+    $workspace = Workspace::where('id', $id)->where('type', 'todo')->firstOrFail();
+    $workspace->delete();
+
+    return response()->json(['message' => 'Workspace ToDo deletado.']);
+}
+
+public function destroyKanban($id)
+{
+    $workspace = Workspace::where('id', $id)->where('type', 'kanban')->firstOrFail();
+    $workspace->delete();
+
+    return response()->json(['message' => 'Workspace Kanban deletado.']);
+}
+
 
     public function indexTodo()
     {

@@ -39,6 +39,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/flow-todo', [FlowController::class, 'indexTodo']);
     Route::get('/tasks-kanban', [TaskController::class, 'indexKanban']);
+    Route::delete('/workspace-todo/{id}', [WorkspaceController::class, 'destroyTodo']);
+    Route::delete('/workspace-kanban/{id}', [WorkspaceController::class, 'destroyKanban']);
+    Route::delete('/flow-todo/{id}', [FlowController::class, 'destroyTodo']);
+    Route::delete('/flow-kanban/{id}', [FlowController::class, 'destroyKanban']);
+    Route::delete('/tasks-todo/{id}', [TaskController::class, 'destroyTodo']);
+    Route::delete('/tasks-kanban/{id}', [TaskController::class, 'destroyKanban']);
 });
 
 Route::fallback(function () {

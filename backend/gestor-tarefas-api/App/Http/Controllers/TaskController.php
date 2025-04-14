@@ -39,6 +39,22 @@ class TaskController extends Controller
         return response()->json($task, 201);
     }
 
+    public function destroyTodo($id)
+    {
+        $task = Task::where('id', $id)->where('type', 'todo')->firstOrFail();
+        $task->delete();
+    
+        return response()->json(['message' => 'Tarefa ToDo deletada.']);
+    }
+    
+    public function destroyKanban($id)
+    {
+        $task = Task::where('id', $id)->where('type', 'kanban')->firstOrFail();
+        $task->delete();
+    
+        return response()->json(['message' => 'Tarefa Kanban deletada.']);
+    }
+
     public function indexTodo(): JsonResponse
     {
         $tasks = Task::whereHas('flow', function ($q) {
