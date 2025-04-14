@@ -26,6 +26,21 @@ class FlowController extends Controller
     ]);
 }
 
+public function destroyTodo($id)
+{
+    $flow = Flow::where('id', $id)->where('type', 'todo')->firstOrFail();
+    $flow->delete();
+
+    return response()->json(['message' => 'Flow ToDo deletado.']);
+}
+
+public function destroyKanban($id)
+{
+    $flow = Flow::where('id', $id)->where('type', 'kanban')->firstOrFail();
+    $flow->delete();
+
+    return response()->json(['message' => 'Flow Kanban deletado.']);
+}
 
     public function indexTodo()
     {
