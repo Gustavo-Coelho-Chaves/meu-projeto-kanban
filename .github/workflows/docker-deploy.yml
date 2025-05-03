@@ -1,32 +1,29 @@
-name: Deploy Docker para Google Cloud
+name: Deploy to EC2
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main  
 
 jobs:
-  docker-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout do código
-      uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Autenticar no Google Cloud
-      uses: google-github-actions/auth@v2
-      with:
-        credentials_json: '${{ secrets.MEU_PROJETO_KANBAN }}'
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-    - name: Configurar Docker para usar o Artifact Registry
-      run: |
-        gcloud auth configure-docker southamerica-east1-docker.pkg.dev
-
-    - name: Fazer build e push das imagens Docker
-      run: |
-        docker build -t southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/frontend:latest ./frontend
-        docker build -t southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/backend:latest ./backend
-        docker build -t southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/postgres:14 ./postgres
-
-        docker push southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/frontend:latest
-        docker push southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/backend:latest
-        docker push southamerica-east1-docker.pkg.dev/dauntless-motif-455700-p3/kanban/postgres:14
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@<EC2-IP> << 'EOF'
+            cd /home/ec2-user/meu-projeto-kanban || exit
+            git pull origin main || exit
+            # Coloque o comando que deseja executar após o pull
+            # Por exemplo: reiniciar um serviço ou rodar um build
+            exit
+          EOF
