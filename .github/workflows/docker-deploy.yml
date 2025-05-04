@@ -23,10 +23,15 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@<EC2-IP> << 'EOF'
+          ssh -o StrictHostKeyChecking=no ec2-user@<13.218.232.137> << 'EOF'
             cd /home/ec2-user/meu-projeto-kanban || exit
             git pull origin main || exit
             # Coloque o comando que deseja executar após o pull
             # Por exemplo: reiniciar um serviço ou rodar um build
             exit
           EOF
+
+      - name: Desligar instância EC2 (opcional)
+        run: |
+         ssh -o StrictHostKeyChecking=no ubuntu@13.218.232.137 "sudo shutdown -h now"
+
