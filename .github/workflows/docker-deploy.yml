@@ -10,28 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout do código
         uses: actions/checkout@v2
 
-      - name: Set up SSH
+      - name: Acessar EC2 e atualizar projeto
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to EC2
-        run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@<13.218.232.137> << 'EOF'
+          echo "${{ secrets.EC2_SSH_KEY }}" > id_rsa
+          chmod 600 id_rsa
+          ssh -o StrictHostKeyChecking=no -i id_rsa ec2-user@13.218.232.137 << 'EOF'
             cd /home/ec2-user/meu-projeto-kanban || exit
             git pull origin main || exit
-            # Coloque o comando que deseja executar após o pull
-            # Por exemplo: reiniciar um serviço ou rodar um build
+            # Aqui você pode colocar comandos como:
+            # docker compose down && docker compose up -d --build
             exit
-          EOF
+EOF
 
       - name: Desligar instância EC2 (opcional)
         run: |
-         ssh -o StrictHostKeyChecking=no ubuntu@13.218.232.137 "sudo shutdown -h now"
-
+          ssh -o StrictHostKeyChecking=no -i id_rsa ec2-user@13.218.232.137 "sudo shutdown -h now"
