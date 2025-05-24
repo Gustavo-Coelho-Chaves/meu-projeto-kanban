@@ -9,7 +9,15 @@ class Workspace extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name', 'type'];
+    protected $fillable = [
+    'user_id',
+    'name',
+    'type',
+    'due_date',
+    'category',
+    'priority',
+];
+
 
     public function flows()
     {

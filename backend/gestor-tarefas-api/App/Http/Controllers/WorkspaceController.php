@@ -19,19 +19,25 @@ class WorkspaceController extends Controller
 
 
     public function storeKanban(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'due_date' => 'nullable|date',
+        'category' => 'nullable|string|max:100',
+    ]);
 
-        $workspace = Workspace::create([
-            'user_id' => auth()->id(),
-            'name' => $request->name,
-            'type' => 'kanban',
-        ]);
+    $workspace = Workspace::create([
+        'user_id' => auth()->id(),
+        'name' => $request->name,
+        'type' => 'kanban',
+        'due_date' => $request->due_date,
+        'category' => $request->category,
+        'priority' => $request->priority,
+    ]);
 
-        return response()->json($workspace, 201);
-    }
+    return response()->json($workspace, 201);
+}
+
 
 public function destroyTodo($id)
 {
