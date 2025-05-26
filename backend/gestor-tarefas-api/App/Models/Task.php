@@ -16,6 +16,7 @@ class Task extends Model
         'due_date',
         'priority',
         'type',
+        'repeat_interval',
     ];
 
     public function flow()

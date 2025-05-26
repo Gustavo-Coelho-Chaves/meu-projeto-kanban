@@ -45,6 +45,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/flow-kanban/{id}', [FlowController::class, 'destroyKanban']);
     Route::delete('/tasks-todo/{id}', [TaskController::class, 'destroyTodo']);
     Route::delete('/tasks-kanban/{id}', [TaskController::class, 'destroyKanban']);
+    Route::put('/tasks-todo/{id}', [TaskController::class, 'updateTodo']);
+    Route::patch('/tasks-todo/{id}', [TaskController::class, 'updateTodo']);
+    Route::put('/tasks-kanban/{id}', [TaskController::class, 'updateKanban']);
+    Route::patch('/tasks-kanban/{id}', [TaskController::class, 'updateKanban']);
+    Route::patch('/flow-todo/{id}', [FlowController::class, 'updateTodo']);
+    Route::patch('/flow-kanban/{id}', [FlowController::class, 'updateKanban']);
+    Route::put('/workspace-todo/{id}', [WorkspaceController::class, 'updateTodo']);
+    Route::patch('/workspace-todo/{id}', [WorkspaceController::class, 'updateTodo']);
+    Route::put('/workspace-kanban/{id}', [WorkspaceController::class, 'updateKanban']);
+    Route::patch('/workspace-kanban/{id}', [WorkspaceController::class, 'updateKanban']);
+
 });
 
 Route::fallback(function () {
