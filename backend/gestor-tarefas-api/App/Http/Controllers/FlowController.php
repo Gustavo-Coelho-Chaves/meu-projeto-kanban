@@ -62,6 +62,31 @@ public function destroyKanban($id)
 
         return response()->json($flow, 201); // <-- Resposta JSON correta
     }
+    public function updateTodo(Request $request, $id)
+{
+    $flow = Flow::where('id', $id)->where('type', 'todo')->firstOrFail();
+
+    $request->validate([
+        'title' => 'sometimes|string|max:255',
+    ]);
+
+    $flow->update($request->only('title'));
+
+    return response()->json($flow);
+}
+
+public function updateKanban(Request $request, $id)
+{
+    $flow = Flow::where('id', $id)->where('type', 'kanban')->firstOrFail();
+
+    $request->validate([
+        'title' => 'sometimes|string|max:255',
+    ]);
+
+    $flow->update($request->only('title'));
+
+    return response()->json($flow);
+}
 
 
 }
