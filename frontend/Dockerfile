@@ -11,7 +11,7 @@ COPY . .
 RUN npm install
 
 # Construir a aplicação React
-RUN npm build
+RUN npm run build
 
 # Expor a porta 3000
 EXPOSE 3000
