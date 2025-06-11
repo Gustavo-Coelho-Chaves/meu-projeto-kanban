@@ -1,3 +1,5 @@
+version: "2.4"
+
 services:
   backend:
     build: ./backend
@@ -15,29 +17,27 @@ services:
       - DB_USERNAME=kanban_db
       - DB_PASSWORD=uniube@2025
     networks:
-    
       - app_network
 
   frontend:
-  build:
-    context: ./frontend/tasks-frontend-main
-    dockerfile: Dockerfile
-  container_name: frontend-react
-  restart: always
-  ports:
-    - "3000:3000"
-  depends_on:
-    - backend
-  networks:
-    - app_network
-
+    build:
+      context: ./frontend/tasks-frontend-main
+      dockerfile: Dockerfile
+    container_name: frontend-react
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - app_network
 
   postgres:
     image: postgres:15
     container_name: db-postgres
     restart: always
     environment:
-      POSTGRES_DB: kaban
+      POSTGRES_DB: kanban
       POSTGRES_USER: kanban_db
       POSTGRES_PASSWORD: uniube@2025
     ports:
