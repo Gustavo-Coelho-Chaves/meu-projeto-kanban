@@ -10,7 +10,7 @@ COPY . /var/www/html
 RUN chown -R www-data:www-data /var/www/html
 
 # Exponha a porta 80
-EXPOSE 80
+EXPOSE 3000
 
 # Inicia o Apache no modo foreground
 CMD ["apache2-foreground"]
