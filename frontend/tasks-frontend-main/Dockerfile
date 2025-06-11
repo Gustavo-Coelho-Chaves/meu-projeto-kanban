@@ -1,20 +1,13 @@
-# Usar uma imagem do Node.js
 FROM node:18-alpine
 
-# Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar arquivos para dentro do contêiner
-COPY . .
-
-# Instalar dependências
+COPY package*.json ./
 RUN npm install
 
-# Construir a aplicação React
-RUN npm run build
+COPY . .
 
-# Expor a porta 3000
+RUN NODE_OPTIONS="--max-old-space-size=1024" npm run build
+
 EXPOSE 3000
-
-# Comando para iniciar o servidor do React
 CMD ["npm", "start"]
