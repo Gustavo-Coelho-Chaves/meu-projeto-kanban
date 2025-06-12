@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.3-apache
 
 # Habilita o módulo de reescrita do Apache (útil para frameworks como Laravel)
 RUN a2enmod rewrite
